@@ -10,16 +10,18 @@ import React from 'react';
 import {
   SafeAreaView,
   StatusBar,
+  Text
 } from 'react-native';
+
+import { Provider } from 'react-redux';
+import store from './store';
+import Home from './Home';
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text>{'Test'}</Text>
-      </SafeAreaView>
-    </>
+    <Provider store={store}>
+      <Home />
+    </Provider>
   );
 };
 
