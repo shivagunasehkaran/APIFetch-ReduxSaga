@@ -1,25 +1,18 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { API_RECEIVE_DATA, receiveAPIData } from './actions';
-import { fetchData } from './api';
+import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from './constants'
+import { put, takeEvery } from 'redux-saga/effects'
+import getPeople from './api'
 
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* fetchAPICall(action) {
+function* fetchData(action) {
     try {
-        const data = yield call(fetchData);
-        console.log("data", data);
-        yield put(receiveAPIData(data));
+        const data = yield getPeople()
+        yield put({ type: FETCHING_DATA_SUCCESS, data })
     } catch (e) {
-        console.log(e);
+        yield put({ type: FETCHING_DATA_FAILURE })
     }
 }
 
-/*
-  Alternatively you may use takeLatest.
-
-  Does not allow concurrent fetches of user. If "USER_FETCH_REQUESTED" gets
-  dispatched while a fetch is already pending, that pending fetch is cancelled
-  and only the latest one will be run.
-*/
-export default function* mySaga() {
-    yield takeLatest(API_RECEIVE_DATA, fetchAPICall);
+function* dataSaga() {
+    yield takeEvery(FETCHING_DATA, fetchData)
 }
+
+export default dataSaga

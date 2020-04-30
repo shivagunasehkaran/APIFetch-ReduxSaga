@@ -1,6 +1,7 @@
-export const API_REQUEST_DATA = "API_REQUEST_DATA";
-export const API_RECEIVE_DATA = "API_RECEIVE_DATA";
+import { FETCHING_DATA } from './constants'
 
-export const requestAPIData = () => ({ type: API_REQUEST_DATA });
-export const receiveAPIData = () => ({ type: API_RECEIVE_DATA });
-
+export function fetchData() {
+    return {
+        type: FETCHING_DATA
+    }
+}

@@ -1,9 +1,9 @@
-export const fetchData = async () => {
-    try {
-        const response = await fetch("https://randomuser.me/api");
-        const data = await response.json();
-        return data;
-    } catch (e) {
-        console.log(e);
-    }
-};
+const people = [
+    { name: 'Nader', age: 36 },
+    { name: 'Amanda', age: 24 },
+    { name: 'Jason', age: 44 }
+]
+
+export default () => {
+    return fetch(`https://api.openbrewerydb.org/breweries`).then(x => x.json()).then(y => y).catch(e => console.log(e));
+}
